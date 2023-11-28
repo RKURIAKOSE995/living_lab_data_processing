@@ -9,7 +9,7 @@ __version__ = "0.1"
 
 from flask import Flask
 from werkzeug.serving import WSGIRequestHandler
-from server.routes import app_blueprint
+from routes import app_blueprint
 from decouple import config
 app = Flask(__name__)
 app.config['BASIC_AUTH_USERNAME'] = config('MONNIT_WEBHOOK_UNAME')
