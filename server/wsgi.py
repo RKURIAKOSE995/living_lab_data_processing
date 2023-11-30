@@ -17,11 +17,11 @@ from flask_basicauth import BasicAuth
 from flask_httpauth import HTTPTokenAuth
 from decouple import config
 
-app = Flask(__name__)
-app.config['BASIC_AUTH_USERNAME'] = config('MONNIT_WEBHOOK_UNAME')
-app.config['BASIC_AUTH_PASSWORD'] = config('MONNIT_WEBHOOK_PWD')
+application = Flask(__name__)
+application.config['BASIC_AUTH_USERNAME'] = config('MONNIT_WEBHOOK_UNAME')
+application.config['BASIC_AUTH_PASSWORD'] = config('MONNIT_WEBHOOK_PWD')
 
-basic_auth = BasicAuth(app)
+basic_auth = BasicAuth(application)
 
 tokens=config('X_DOWNLINK_APIKEY')
 
@@ -32,20 +32,20 @@ def verify_token(token):
 		return tokens[token]
 
 
-@app.route('/')
-@app.route('/index')
+@application.route('/')
+@application.route('/index')
 def index():
     return "Hello, World!"
 
 
-@app.route('/imonnit', methods=['POST'])
+@application.route('/imonnit', methods=['POST'])
 @basic_auth.required
 def process_monnit():
 	monnit_webhook()
 
 
 #	TTN Listener
-@app.route('/ttn/uplink/messages', methods=['POST'])
+@application.route('/ttn/uplink/messages', methods=['POST'])
 def TTN_UPLINK_MESSAGE():
 	print('')
 	headers = request.headers
@@ -62,7 +62,7 @@ def TTN_UPLINK_MESSAGE():
 
 
 #	TTN Webhook Testing for other messages
-@app.route('/', methods=['POST'])
+@application.route('/', methods=['POST'])
 def root():
 	headers = request.headers
 	auth = headers.get("X-Api-Key")
