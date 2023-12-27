@@ -41,7 +41,7 @@ def index():
 @application.route('/imonnit', methods=['POST'])
 @basic_auth.required
 def process_monnit():
-	monnit_webhook()
+	return monnit_webhook()
 
 
 #	TTN Listener

@@ -17,9 +17,10 @@ import os
 # Convert returned strings from the DB into GUID
 def str_to_uuid(struct, flask = False):
 	if flask:
+		print(struct)
 		# Remove the leading and trailing characters from the ID
 		struct = struct.replace("[('", "")
-		struct = struct.replace("', )]", "")
+		struct = struct.replace("',)]", "")
 		# Convert trimmed string into a GUID (UUID)
 		g.strUUID =  UUID(struct)
 

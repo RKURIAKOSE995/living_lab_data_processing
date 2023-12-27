@@ -273,7 +273,7 @@ def monnit_webhook():
 	sensorMessages = json_normalize(sensorMessages)
 
 	process_data(sensorMessages)
-
+	print('done monnit')
 	# Return status 200 (success) to the remote client
 	status_code = Response(status=200)
 	return status_code

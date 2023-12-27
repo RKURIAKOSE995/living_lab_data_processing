@@ -6,7 +6,7 @@ BEGIN
 	IF EXISTS
 	(
 		SELECT networkID
-		FROM dbresprod.dbo.MONNIT_NETWORKS
+		FROM MONNIT_NETWORKS
 		WHERE networkID = @networkID
 	)
 	BEGIN
@@ -15,7 +15,7 @@ BEGIN
 
 	ELSE
 		BEGIN
-			INSERT INTO dbresprod.dbo.MONNIT_NETWORKS (networkID) VALUES (@networkID)
+			INSERT INTO MONNIT_NETWORKS (networkID) VALUES (@networkID)
 		END
 END
 GO
@@ -29,7 +29,7 @@ BEGIN
 	IF EXISTS
 	(
 		SELECT applicationID
-		FROM dbresprod.dbo.MONNIT_APPLICATIONS
+		FROM MONNIT_APPLICATIONS
 		WHERE applicationID = @applicationID
 	)
 	BEGIN
@@ -38,7 +38,7 @@ BEGIN
 
 	ELSE
 		BEGIN
-			INSERT INTO dbresprod.dbo.MONNIT_APPLICATIONS (applicationID) VALUES (@applicationID)
+			INSERT INTO MONNIT_APPLICATIONS (applicationID) VALUES (@applicationID)
 		END
 END
 GO
@@ -54,12 +54,12 @@ BEGIN
 	IF EXISTS
 	(
 		SELECT sensorID
-		FROM dbresprod.dbo.MONNIT_SENSORS
+		FROM MONNIT_SENSORS
 		WHERE sensorName LIKE @sensorName
 	)
 	BEGIN
 		SELECT @sensorID = sensorID
-		FROM dbresprod.dbo.MONNIT_SENSORS
+		FROM MONNIT_SENSORS
 		WHERE sensorName LIKE @sensorName
 	END
 
@@ -67,7 +67,7 @@ BEGIN
 		BEGIN
 			SET @sensorID = NULL
 			SET @sensorID = NEWID()
-			INSERT INTO dbresprod.dbo.MONNIT_SENSORS (sensorID, applicationID, networkID, sensorName) VALUES (@sensorID, @applicationID, @networkID, @sensorName)
+			INSERT INTO MONNIT_SENSORS (sensorID, applicationID, networkID, sensorName) VALUES (@sensorID, @applicationID, @networkID, @sensorName)
 		END
 END
 GO
@@ -83,12 +83,12 @@ BEGIN
 	IF EXISTS
 	(
 		SELECT dataTypeID
-		FROM dbresprod.dbo.MONNIT_DATA_TYPES
+		FROM MONNIT_DATA_TYPES
 		WHERE dataType LIKE @dataType
 	)
 	BEGIN
 		SELECT @dataTypeID = dataTypeID
-		FROM dbresprod.dbo.MONNIT_DATA_TYPES
+		FROM MONNIT_DATA_TYPES
 		WHERE dataType LIKE @dataType
 	END
 
@@ -97,7 +97,7 @@ BEGIN
 			SET @dataTypeID = NULL
 			SET @dataTypeID = NEWID()
 
-			INSERT INTO dbresprod.dbo.MONNIT_DATA_TYPES (dataTypeID, dataType) VALUES (@dataTypeID, @dataType)
+			INSERT INTO MONNIT_DATA_TYPES (dataTypeID, dataType) VALUES (@dataTypeID, @dataType)
 		END
 END
 GO
@@ -113,12 +113,12 @@ BEGIN
 	IF EXISTS
 	(
 		SELECT plotLabelID
-		FROM dbresprod.dbo.MONNIT_PLOT_LABELS
+		FROM MONNIT_PLOT_LABELS
 		WHERE plotLabel LIKE @plotLabel
 	)
 	BEGIN
 		SELECT @plotLabelID = plotLabelID
-		FROM dbresprod.dbo.MONNIT_PLOT_LABELS
+		FROM MONNIT_PLOT_LABELS
 		WHERE plotLabel LIKE @plotLabel
 	END
 
@@ -127,7 +127,7 @@ BEGIN
 			SET @plotLabelID = NULL
 			SET @plotLabelID = NEWID()
 
-			INSERT INTO dbresprod.dbo.MONNIT_PLOT_LABELS (plotLabelID, plotLabel) VALUES (@plotLabelID, @plotLabel)
+			INSERT INTO MONNIT_PLOT_LABELS (plotLabelID, plotLabel) VALUES (@plotLabelID, @plotLabel)
 		END
 END
 GO
@@ -142,7 +142,7 @@ BEGIN
 	SET @readingID = NULL
 	SET @readingID = NEWID()
 
-	INSERT INTO dbresprod.dbo.MONNIT_READINGS (readingID, dataMessageGUID, sensorID, rawData, dataTypeID, dataValue, plotLabelID, plotValue, messageDate) VALUES (@readingID, @dataMessageGUID, @sensorID, @rawData, @dataTypeID, @dataValue, @plotLabelID, @plotValue, @messageDate)
+	INSERT INTO MONNIT_READINGS (readingID, dataMessageGUID, sensorID, rawData, dataTypeID, dataValue, plotLabelID, plotValue, messageDate) VALUES (@readingID, @dataMessageGUID, @sensorID, @rawData, @dataTypeID, @dataValue, @plotLabelID, @plotValue, @messageDate)
 END
 GO
 
@@ -152,7 +152,7 @@ CREATE PROCEDURE PROC_CREATE_SIGNAL_STATUS_MONNIT (@readingID UNIQUEIDENTIFIER, 
 AS
 BEGIN
 	SET NOCOUNT ON;
-	INSERT INTO dbresprod.dbo.MONNIT_SIGNAL_STATUS (readingID, dataMessageGUID, signalStrength) VALUES (@readingID, @dataMessageGUID, @signalStrength)
+	INSERT INTO MONNIT_SIGNAL_STATUS (readingID, dataMessageGUID, signalStrength) VALUES (@readingID, @dataMessageGUID, @signalStrength)
 END
 GO
 
@@ -162,7 +162,7 @@ CREATE PROCEDURE PROC_CREATE_BATTERY_STATUS_MONNIT (@readingID UNIQUEIDENTIFIER,
 AS
 BEGIN
 	SET NOCOUNT ON;
-	INSERT INTO dbresprod.dbo.MONNIT_BATTERY_STATUS (readingID, dataMessageGUID, batteryLevel) VALUES (@readingID, @dataMessageGUID, @batteryLevel)
+	INSERT INTO MONNIT_BATTERY_STATUS (readingID, dataMessageGUID, batteryLevel) VALUES (@readingID, @dataMessageGUID, @batteryLevel)
 END
 GO
 
@@ -172,7 +172,7 @@ CREATE PROCEDURE PROC_CREATE_PENDING_CHANGES_MONNIT (@readingID UNIQUEIDENTIFIER
 AS
 BEGIN
 	SET NOCOUNT ON;
-	INSERT INTO dbresprod.dbo.MONNIT_PENDING_CHANGES (readingID, dataMessageGUID, pendingChange) VALUES (@readingID, @dataMessageGUID, @pendingChange)
+	INSERT INTO MONNIT_PENDING_CHANGES (readingID, dataMessageGUID, pendingChange) VALUES (@readingID, @dataMessageGUID, @pendingChange)
 END
 GO
 
@@ -182,6 +182,6 @@ CREATE PROCEDURE PROC_CREATE_SENSOR_VOLTAGE_MONNIT (@readingID UNIQUEIDENTIFIER,
 AS
 BEGIN
 	SET NOCOUNT ON;
-	INSERT INTO dbresprod.dbo.MONNIT_SENSOR_VOLTAGE (readingID, dataMessageGUID, voltage) VALUES (@readingID, @dataMessageGUID, @voltage)
+	INSERT INTO MONNIT_SENSOR_VOLTAGE (readingID, dataMessageGUID, voltage) VALUES (@readingID, @dataMessageGUID, @voltage)
 END
 GO

@@ -6,12 +6,12 @@ BEGIN
 	IF EXISTS
 	(
 		SELECT unitGUID
-		from dbresprod.dbo.SEL_UNITS
+		from SEL_UNITS
 		WHERE unitID = @unitID
 	)
 	BEGIN
 		SELECT @unitGUID = unitGUID
-		from dbresprod.dbo.SEL_UNITS
+		from SEL_UNITS
 		WHERE unitID = @unitID
 	END
 
@@ -19,7 +19,7 @@ BEGIN
 		BEGIN
 			SET @unitGUID = NULL
 			SET @unitGUID = NEWID()
-			INSERT INTO dbresprod.dbo.SEL_UNITS (unitGUID, unitID, unitName) VALUES (@unitGUID, @unitID, @unitName)
+			INSERT INTO SEL_UNITS (unitGUID, unitID, unitName) VALUES (@unitGUID, @unitID, @unitName)
 		END
 END
 GO
@@ -33,12 +33,12 @@ BEGIN
 	IF EXISTS
 	(
 		SELECT modeGUID
-		from dbresprod.dbo.SEL_MODES
+		from SEL_MODES
 		WHERE modeID = @modeID
 	)
 	BEGIN
 		SELECT @modeGUID = modeGUID
-		from dbresprod.dbo.SEL_MODES
+		from SEL_MODES
 		WHERE modeID = @modeID
 	END
 
@@ -46,7 +46,7 @@ BEGIN
 		BEGIN
 			SET @modeGUID = NULL
 			SET @modeGUID = NEWID()
-			INSERT INTO dbresprod.dbo.SEL_MODES (modeGUID, modeID) VALUES (@modeGUID, @modeID)
+			INSERT INTO SEL_MODES (modeGUID, modeID) VALUES (@modeGUID, @modeID)
 		END
 END
 GO
@@ -60,12 +60,12 @@ BEGIN
 	IF EXISTS
 	(
 		SELECT statusGUID
-		from dbresprod.dbo.SEL_STATUSES
+		from SEL_STATUSES
 		WHERE statusID = @statusID
 	)
 	BEGIN
 		SELECT @statusGUID = statusGUID
-		from dbresprod.dbo.SEL_STATUSES
+		from SEL_STATUSES
 		WHERE statusID = @statusID
 	END
 
@@ -73,7 +73,7 @@ BEGIN
 		BEGIN
 			SET @statusGUID = NULL
 			SET @statusGUID = NEWID()
-			INSERT INTO dbresprod.dbo.SEL_STATUSES (statusGUID, statusID) VALUES (@statusGUID, @statusID)
+			INSERT INTO SEL_STATUSES (statusGUID, statusID) VALUES (@statusGUID, @statusID)
 		END
 END
 GO
@@ -87,12 +87,12 @@ BEGIN
 	IF EXISTS
 	(
 		SELECT sensorGUID
-		from dbresprod.dbo.SEL_SENSORS
+		from SEL_SENSORS
 		WHERE sensorName = @sensorName
 	)
 	BEGIN
 		SELECT @sensorGUID = sensorGUID
-		FROM dbresprod.dbo.SEL_SENSORS
+		FROM SEL_SENSORS
 		WHERE sensorName = @sensorName
 	END
 
@@ -100,7 +100,7 @@ BEGIN
 		BEGIN
 			SET @sensorGUID = NULL
 			SET @sensorGUID = NEWID()
-			INSERT INTO dbresprod.dbo.SEL_SENSORS (sensorGUID, sensorName) VALUES (@sensorGUID, @sensorName)
+			INSERT INTO SEL_SENSORS (sensorGUID, sensorName) VALUES (@sensorGUID, @sensorName)
 		END
 END
 GO
@@ -114,12 +114,12 @@ BEGIN
 	IF EXISTS
 	(
 		SELECT typeGUID
-		from dbresprod.dbo.SEL_TYPES
+		from SEL_TYPES
 		WHERE typeID = @typeID
 	)
 	BEGIN
 		SELECT @typeGUID = typeGUID
-		FROM dbresprod.dbo.SEL_TYPES
+		FROM SEL_TYPES
 		WHERE typeID = @typeID
 	END
 
@@ -127,7 +127,7 @@ BEGIN
 		BEGIN
 			SET @typeGUID = NULL
 			SET @typeGUID = NEWID()
-			INSERT INTO dbresprod.dbo.SEL_TYPES (typeGUID, typeID) VALUES (@typeGUID, @typeID)
+			INSERT INTO SEL_TYPES (typeGUID, typeID) VALUES (@typeGUID, @typeID)
 		END
 END
 GO
@@ -141,12 +141,12 @@ BEGIN
 	IF EXISTS
 	(
 		SELECT mUnitGUID
-		FROM dbresprod.dbo.SEL_MEASURE_UNITS
+		FROM SEL_MEASURE_UNITS
 		WHERE mUnitName = @mUnitName
 	)
 	BEGIN
 		SELECT @mUnitGUID = mUnitGUID
-		FROM dbresprod.dbo.SEL_MEASURE_UNITS
+		FROM SEL_MEASURE_UNITS
 		WHERE mUnitName = @mUnitName
 	END
 
@@ -154,7 +154,7 @@ BEGIN
 		BEGIN
 			SET @mUnitGUID = NULL
 			SET @mUnitGUID = NEWID()
-			INSERT INTO dbresprod.dbo.SEL_MEASURE_UNITS (mUnitGUID, mUnitName) VALUES (@munitGUID, @munitName)
+			INSERT INTO SEL_MEASURE_UNITS (mUnitGUID, mUnitName) VALUES (@munitGUID, @munitName)
 		END
 END
 GO
@@ -167,7 +167,7 @@ BEGIN
 	SET NOCOUNT ON;
 	SET @outputGUID = NULL
 	SET @outputGUID = NEWID()
-	INSERT INTO dbresprod.dbo.SEL_OUTPUTS (outputGUID, unitGUID, modeGUID, statusGUID, outputID, outputName, highState, lowState) VALUES (@outputGUID, @unitGUID, @modeGUID, @statusGUID, @outputID, @outputName, @highState, @lowState)
+	INSERT INTO SEL_OUTPUTS (outputGUID, unitGUID, modeGUID, statusGUID, outputID, outputName, highState, lowState) VALUES (@outputGUID, @unitGUID, @modeGUID, @statusGUID, @outputID, @outputName, @highState, @lowState)
 END
 GO
 
@@ -179,7 +179,7 @@ BEGIN
 	SET NOCOUNT ON;
 	SET @requestGUID = NULL
 	SET @requestGUID = NEWID()
-	INSERT INTO dbresprod.dbo.SEL_REQUESTS (requestGUID, unitGUID, modeGUID, success, requestMessage, requestNow, requestName, tz, updateCycle) VALUES (@requestGUID, @unitGUID, @modeGUID, @success, @requestMessage, @requestNow, @requestName, @tz, @updateCycle)
+	INSERT INTO SEL_REQUESTS (requestGUID, unitGUID, modeGUID, success, requestMessage, requestNow, requestName, tz, updateCycle) VALUES (@requestGUID, @unitGUID, @modeGUID, @success, @requestMessage, @requestNow, @requestName, @tz, @updateCycle)
 END
 GO
 
@@ -191,7 +191,7 @@ BEGIN
 	SET NOCOUNT ON;
 	SET @alarmGUID = NULL
 	SET @alarmGUID = NEWID()
-	INSERT INTO dbresprod.dbo.SEL_ALARMS (alarmGUID, unitGUID, typeGUID, statusGUID, mUnitGUID, alarmID, alarmName, healthyName, faultyName, pulsetotal) VALUES (@alarmGUID, @unitGUID, @typeGUID, @statusGUID, @mUnitGUID, @alarmID, @alarmName, @healthyName, @faultyName, @pulsetotal)
+	INSERT INTO SEL_ALARMS (alarmGUID, unitGUID, typeGUID, statusGUID, mUnitGUID, alarmID, alarmName, healthyName, faultyName, pulsetotal) VALUES (@alarmGUID, @unitGUID, @typeGUID, @statusGUID, @mUnitGUID, @alarmID, @alarmName, @healthyName, @faultyName, @pulsetotal)
 END
 GO
 
@@ -203,7 +203,7 @@ BEGIN
 	SET NOCOUNT ON;
 	SET @readingGUID = NULL
 	SET @readingGUID = NEWID()
-	INSERT INTO dbresprod.dbo.SEL_READINGS (readingGUID, unitGUID, mUnitGUID, sensorGUID, analogID, readingValue, recharge, cyclePulses, readingStart, readingStop, dp) VALUES (@readingGUID, @unitGUID, @mUnitGUID, @sensorGUID, @analogID, @readingValue, @recharge, @cyclePulses, @readingStart, @readingStop, @dp)
+	INSERT INTO SEL_READINGS (readingGUID, unitGUID, mUnitGUID, sensorGUID, analogID, readingValue, recharge, cyclePulses, readingStart, readingStop, dp) VALUES (@readingGUID, @unitGUID, @mUnitGUID, @sensorGUID, @analogID, @readingValue, @recharge, @cyclePulses, @readingStart, @readingStop, @dp)
 END
 GO
 
@@ -213,6 +213,6 @@ CREATE PROCEDURE PROC_CREATE_SEL_UPDATE (@requestGUID AS UNIQUEIDENTIFIER, @alar
 AS
 BEGIN
 	SET NOCOUNT ON;
-	INSERT INTO dbresprod.dbo.SEL_UPDATES (requestGUID, alarmGUID, readingGUID, outputGUID, lastUpdate) VALUES (@requestGUID, @alarmGUID, @readingGUID, @outputGUID, @lastUpdate)
+	INSERT INTO SEL_UPDATES (requestGUID, alarmGUID, readingGUID, outputGUID, lastUpdate) VALUES (@requestGUID, @alarmGUID, @readingGUID, @outputGUID, @lastUpdate)
 END
 GO

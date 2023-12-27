@@ -1,11 +1,15 @@
-from flask import Blueprint
+import datetime
+import json
+from flask import request
+import flask
+from server import app
 from iMonnit.monnit import monnit_webhook
 from flask_basicauth import BasicAuth
 from flask_httpauth import HTTPTokenAuth
 from decouple import config
 
-app_blueprint = Blueprint('app_blueprint',__name__)
-basic_auth = BasicAuth()
+
+basic_auth = BasicAuth(app)
 
 tokens=config('X_DOWNLINK_APIKEY')
 
